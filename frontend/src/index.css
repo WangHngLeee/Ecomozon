@@ -7,9 +7,12 @@ body{
   height: 100vh;
   margin: 0;
 }
+#root{
+  height:100%;
+}
 .grid-container{
   display: grid;
-  grid-template-areas: 
+  grid-template-areas:
   "header"
   "main"
   "footer";
@@ -43,6 +46,7 @@ body{
 }
 .main{
   grid-area: main;
+  height:100%;
 }
 .footer{
   grid-area: footer;
@@ -132,4 +136,26 @@ a:hover{
   position: absolute;
   right: .5rem;
   top: 1.5rem
+}
+
+/* product info */
+
+.details{
+  display:flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.details-image{
+  flex:2 1 60rem;
+}
+.details-image img{
+  max-width: 60rem;
+  widows: 100%;
+}
+.details-info{
+  flex:2 1 60rem;
+}
+.details-action{
+  flex:2 1 60rem;
 }
