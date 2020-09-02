@@ -21,8 +21,8 @@ function App() {
             <Link to="/">Ecomozon</Link>
           </div>
           <div className="header-links">
-            <a href="cart.html">Cart</a>
-            <a href="signin.html">Sign In</a>
+            <Link to="/cart">Cart</Link>
+            <a href="/signin">Sign In</a>
           </div>
         </header>
         <aside className="sidebar">
