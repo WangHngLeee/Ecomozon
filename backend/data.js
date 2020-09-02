@@ -7,7 +7,8 @@ export default  {
         price:58.99,
         brand:'Nike',
         rating: 4.5,
-        numReviews: 330
+        numReviews: 330,
+        countInStock:6,
     },
     {
         _id:'2',
@@ -17,7 +18,8 @@ export default  {
         price:59.9,
         brand:'Adidas',
         rating: 4.8,
-        numReviews: 290
+        numReviews: 290,
+        countInStock:6,
     },
     {
         _id:'3',
@@ -27,7 +29,8 @@ export default  {
         price:34.99,
         brand:'Puma',
         rating: 4.4,
-        numReviews: 190
+        numReviews: 190,
+        countInStock:6,
     },
     {
         _id:'4',
@@ -37,7 +40,8 @@ export default  {
         price:43.99,
         brand:'Nike',
         rating: 4.9,
-        numReviews: 490
+        numReviews: 490,
+        countInStock:6,
     },
     {
         _id:'5',
@@ -47,7 +51,8 @@ export default  {
         price:43.99,
         brand:'Nike',
         rating: 4.9,
-        numReviews: 490
+        numReviews: 490,
+        countInStock:6,
     },
     {
         _id:'6',
@@ -57,7 +62,8 @@ export default  {
         price:43.99,
         brand:'Nike',
         rating: 4.9,
-        numReviews: 490
+        numReviews: 490,
+        countInStock:6,
     },
     {
         _id:'7',
@@ -67,7 +73,8 @@ export default  {
         price:43.99,
         brand:'Nike',
         rating: 4.9,
-        numReviews: 490
+        numReviews: 490,
+        countInStock:6,
     },{
         _id:'8',
         name:'Best Pants',
@@ -76,6 +83,7 @@ export default  {
         price:43.99,
         brand:'Nike',
         rating: 4.9,
-        numReviews: 490
+        numReviews: 490,
+        countInStock:6,
     }]
 }
