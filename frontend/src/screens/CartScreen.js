@@ -11,20 +11,18 @@ function CartScreen(props) {
   const productId = props.match.params.id;
   const qty = props.location.search ? Number(props.location.search.split("=")[1]) : 1;
   const dispatch = useDispatch();
-
-  const removeFromCartHandler = (productId) =>{
+  const removeFromCartHandler = (productId) => {
     dispatch(removeFromCart(productId));
   }
-
-
   useEffect(() => {
     if (productId) {
       dispatch(addToCart(productId, qty));
     }
   }, []);
 
-
-
+  const checkoutHandler = () => {
+    props.history.push("/signin?redirect=shipping");
+  }
 
   return <div className="cart">
     <div className="cart-list">
@@ -33,7 +31,7 @@ function CartScreen(props) {
           <h3>
             Shopping Cart
           </h3>
-          <div className='top-price'>
+          <div>
             Price
           </div>
         </li>
@@ -62,7 +60,9 @@ function CartScreen(props) {
                         <option key={x + 1} value={x + 1}>{x + 1}</option>
                       )}
                     </select>
-                    <button type="button" className="button" onClick={() => removeFromCartHandler(item.product)}>Delete item</button>
+                    <button type="button" className="button" onClick={() => removeFromCartHandler(item.product)} >
+                      Delete
+                    </button>
                   </div>
                 </div>
                 <div className="cart-price">
