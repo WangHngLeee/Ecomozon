@@ -239,6 +239,10 @@ a > .rating > span:last-child {
   margin: 1rem;
   align-items: flex-start;
 }
+.top-price{
+  font-size: large;
+  font-weight: bold;
+}
 .cart-list {
   flex: 3 1 60rem;
 }
@@ -256,7 +260,7 @@ a > .rating > span:last-child {
 .cart-list-container li {
   display: flex;
   justify-content: space-between;
-
+  align-items: flex-end;
   padding-bottom: 1rem;
   margin-bottom: 1rem;
   border-bottom: 0.1rem #c0c0c0 solid;
