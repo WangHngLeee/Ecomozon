@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { saveProduct, listProducts } from "../actions/productActions";
 
 function ProductsScreen(props) {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const [brand, setBrand] = useState("");
@@ -32,10 +34,24 @@ function ProductsScreen(props) {
     };
   }, []);
 
+  const openModal =(product) => {
+    setModalVisible(true);
+    setName(product.name);
+    setId(product._id);
+    setPrice(product.price);
+    setImage(product.image);
+    setBrand(product.brand);
+    setCategory(product.category);
+    setCountInStock(product.countInStock);
+    setDescription(product.description);
+  }
+
+
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(
       saveProduct({
+        _id:id,
         name,
         price,
         image,
@@ -50,8 +66,9 @@ function ProductsScreen(props) {
     <div className="content content-margined">
       <div className="product-header">
         <h3>Products</h3>
-        <button>Create Product</button>
+        <button onClick={()=>openModal({})}>Create Product</button>
       </div>
+    { modalVisible &&
       <div className="form">
         <form onSubmit={submitHandler}>
           <ul className="form-container">
@@ -65,6 +82,7 @@ function ProductsScreen(props) {
             <li>
               <label htmlFor="name">Name</label>
               <input
+                value={name}
                 type="text"
                 name="name"
                 id="name"
@@ -75,6 +93,7 @@ function ProductsScreen(props) {
               <label htmlFor="price">Price</label>
               <input
                 type="text"
+                value={price}
                 name="price"
                 id="price "
                 onChange={(e) => setPrice(e.target.value)}
@@ -84,6 +103,7 @@ function ProductsScreen(props) {
               <label htmlFor="image">Image</label>
               <input
                 type="text"
+                value={image}
                 name="image"
                 id="image"
                 onChange={(e) => setImage(e.target.value)}
@@ -93,6 +113,7 @@ function ProductsScreen(props) {
               <label htmlFor="brand">Brand</label>
               <input
                 type="text"
+                value={brand}
                 name="brand"
                 id="brand"
                 onChange={(e) => setBrand(e.target.value)}
@@ -102,6 +123,7 @@ function ProductsScreen(props) {
               <label htmlFor="countInStock">CountInStock</label>
               <input
                 type="text"
+                value={countInStock}
                 name="countInStock"
                 id="countInStock"
                 onChange={(e) => setCountInStock(e.target.value)}
@@ -111,6 +133,7 @@ function ProductsScreen(props) {
               <label htmlFor="category">Category</label>
               <input
                 type="text"
+                value={category}
                 name="category"
                 id="category"
                 onChange={(e) => setCategory(e.target.value)}
@@ -120,18 +143,23 @@ function ProductsScreen(props) {
               <label htmlFor="description">Description</label>
               <textarea
                 name="description"
+                value={description}
                 id="description"
                 onChange={(e) => setDescription(e.target.value)}
               ></textarea>
             </li>
             <li>
               <button type="submit" className="button primary">
-                Create
+                {id? "Update" : "Create"}
+              </button>
+              <button type="button" onClick={() => setModalVisible(false)} className="button secondary">
+                Back
               </button>
             </li>
           </ul>
         </form>
       </div>
+      }
       <div className="product-list">
         <table>
           <thead>
@@ -153,7 +181,7 @@ function ProductsScreen(props) {
                 <td>{product.category}</td>
                 <td>{product.brand}</td>
                 <td>
-                  <button>Edit</button>
+                  <button onClick={() => openModal(product)}>Edit</button>
                   <button>Delete</button>
                 </td>
               </tr>
