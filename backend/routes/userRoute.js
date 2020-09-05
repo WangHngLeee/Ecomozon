@@ -29,7 +29,6 @@ router.post('/register', async (req,res) => {
         password: req.body.password
     })
     const newUser = await user.save();
-    
     if(newUser){
         res.send({
             _id:newUser.id,
@@ -42,6 +41,7 @@ router.post('/register', async (req,res) => {
         res.status(401).send({msg: 'Invalid User Data'});
     }
 })
+
 router.get("/createadmin", async (req,res) => {
     try {
         const user = new User({
