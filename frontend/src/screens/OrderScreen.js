@@ -3,21 +3,29 @@ import { addToCart, removeFromCart } from "../actions/cartAction";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import CheckoutSteps from "../components/CheckoutSteps";
-import { createOrder, detailsOrder } from "../actions/orderActions";
+import { createOrder, detailsOrder, payOrder } from "../actions/orderActions";
+import PaypalButton from "../components/PaypalButton";
 
 function OrderScreen(props) {
-    const dispatch = useDispatch();
+    const orderPay = useSelector((state) => state.orderPay);
+    const {loading : loadingPay, success : successPay, error : errorPay} = orderPay;
 
+    const dispatch = useDispatch();
     useEffect(() => {
+      if(successPay){
+        props.history.push("/profile");
+      }else{
         dispatch(detailsOrder(props.match.params.id));
-        return() => {
-        }
-    }, []);
+      }
+      return() => {
+
+      }
+    }, [successPay]);
 
   const orderDetails = useSelector((state) => state.orderDetails);
   const {loading, order, error} = orderDetails;
-  const payHandler = () => {
-
+  const handleSuccessPayment = (paymentResult) => {
+    dispatch(payOrder(order,paymentResult));
   };
 
   return (
@@ -42,7 +50,9 @@ function OrderScreen(props) {
                 Payment Method: {order.payment.paymentMethod}
             </div>
             <div>
+              <li className="placeorder-actions-payment">
                 {order.isPaid ? "Paid at" + order.paidAt : "Not Paid"}
+              </li>
             </div>
           </div>
           <div>
@@ -77,7 +87,8 @@ function OrderScreen(props) {
         <div className="placeorder-action">
             <ul>
                 <li>
-                    <button className= "button primary full-width" onClick={payHandler} >Pay Now</button>
+                  {!order.isPaid  && 
+                  <PaypalButton amount={order.totalPrice} onSuccess={handleSuccessPayment}/> }
                 </li>
                 <li>
                     <h3>Order Summary</h3>
