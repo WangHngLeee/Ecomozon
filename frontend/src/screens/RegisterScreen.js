@@ -13,13 +13,13 @@ function RegisterScreen(props) {
 
 
     const userRegister = useSelector(state => state.userRegister);
-
+    const redirect = props.location.search ? props.location.search.split("=")[1] : "/";
     const { loading, userInfo, error} = userRegister
 
     const dispatch = useDispatch();
     useEffect(() => {
         if(userInfo){
-            props.history.push("/");
+            props.history.push(redirect);
         }
 
         return () => {
@@ -70,7 +70,9 @@ function RegisterScreen(props) {
           <button type="submit" className="button primary">Register</button>
         </li>
         <li>
-          Already have an Ecomozon account ? <Link to="/signin">Sign-In</Link>
+          Already have an Ecomozon account ? 
+          <Link to={redirect === "/" ? "signin" : "signin?redirect=" + redirect} className="button secondary text-center" >Sign in here</Link>
+
         </li>
       </ul>
     </form>
