@@ -3,6 +3,14 @@ import {isAuth} from'../util';
 import Order from '../models/orderModel';
 
 const router = express.Router();
+router.get("/:id", isAuth, async(req,res) => {
+    const order = await Order.findOne({_id: req.params.id});
+    if(order){
+        res.send(order);
+    }else{
+        res.status(401).send("Order Not Found");
+    }
+});
 
 router.post("/", isAuth, async (req, res) => {
     const newOrder = new Order({
