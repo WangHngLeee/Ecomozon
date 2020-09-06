@@ -23,7 +23,7 @@ function PlaceOrderScreen(props) {
   const dispatch = useDispatch();
 
   const placeOrderHandler = () =>{
-    dispatch(createOrder({ cartItems, shipping, payment, itemsPrice, shippingPrice, taxPrice, totalPrice }))
+    dispatch(createOrder({ orderItems: cartItems, shipping, payment, itemsPrice, shippingPrice, taxPrice, totalPrice }))
   }
   useEffect(() => {
     if(success){
