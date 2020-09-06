@@ -16,9 +16,10 @@ function ShippingScreen(props) {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(saveShipping(address, city, postalCode, country));
+    dispatch(saveShipping({address, city, postalCode, country}));
     props.history.push('payment');
   };
+  
   return (
     <div>
       <CheckoutSteps step1 step2></CheckoutSteps>
@@ -31,7 +32,7 @@ function ShippingScreen(props) {
             <li>
               <label htmlFor="address">Address</label>
               <input
-                type="name"
+                type="text"
                 name="address"
                 id="address"
                 onChange={(e) => setAddress(e.target.value)}
@@ -41,7 +42,7 @@ function ShippingScreen(props) {
             <li>
               <label htmlFor="city">City</label>
               <input
-                type="name"
+                type="text"
                 name="city"
                 id="city"
                 onChange={(e) => setCity(e.target.value)}
@@ -51,7 +52,7 @@ function ShippingScreen(props) {
             <li>
               <label htmlFor="country">Country</label>
               <input
-                type="name"
+                type="text"
                 name="country"
                 id="country"
                 onChange={(e) => setCountry(e.target.value)}
@@ -61,7 +62,7 @@ function ShippingScreen(props) {
             <li>
               <label htmlFor="postalCode">Zip Code</label>
               <input
-                type="name"
+                type="text"
                 name="postalCode"
                 id="postalCode"
                 onChange={(e) => setPostalCode(e.target.value)}
