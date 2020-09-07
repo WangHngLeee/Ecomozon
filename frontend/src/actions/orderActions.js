@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { ORDER_CREATE_SUCCESS, ORDER_CREATE_FAIL, ORDER_CREATE_REQUEST, ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS, ORDER_DETAILS_FAIL, ORDER_PAY_REQUEST, ORDER_PAY_SUCCESS, ORDER_PAY_FAIL } from '../constants/orderConstants';
+import { ORDER_CREATE_SUCCESS, ORDER_CREATE_FAIL, ORDER_CREATE_REQUEST, ORDER_DETAILS_REQUEST, ORDER_DETAILS_SUCCESS, ORDER_DETAILS_FAIL, ORDER_PAY_REQUEST, ORDER_PAY_SUCCESS, ORDER_PAY_FAIL, MY_ORDER_LIST_SUCCESS, MY_ORDER_LIST_REQUEST, MY_ORDER_LIST_FAIL } from '../constants/orderConstants';
 
 const createOrder = (order) => async (dispatch, getState) => {
     try {
@@ -33,6 +33,22 @@ const detailsOrder = (orderId) => async (dispatch, getState) => {
   }
 
 
+  const listMyOrders = () => async (dispatch, getState) => {
+    try {
+      dispatch({ type: MY_ORDER_LIST_REQUEST });
+      const { userSignin: { userInfo } } = getState();
+      const { data } = await Axios.get("/api/orders/mine", {
+          headers:
+          {
+              'Authorization': 'HomLee ' + userInfo.token
+      }})
+      dispatch({ type: MY_ORDER_LIST_SUCCESS, payload: data })
+    } catch (error) {
+      dispatch({ type: MY_ORDER_LIST_FAIL, payload: error.message });
+    }
+  }
+
+
   const payOrder = (order, paymentResult) => async (dispatch, getState) => {
     try {
       dispatch({ type: ORDER_PAY_REQUEST, payload: paymentResult });
@@ -48,5 +64,5 @@ const detailsOrder = (orderId) => async (dispatch, getState) => {
     }
   }
 
-export {createOrder,detailsOrder, payOrder};
+export {createOrder,detailsOrder, payOrder, listMyOrders};
 
