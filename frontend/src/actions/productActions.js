@@ -15,16 +15,16 @@ import {
 
 import Axios from "axios";
 
-const listProducts = () => async (dispatch) => {
+const listProducts = (category ='',searchKeyword='', sortOrder='') => async (dispatch) => {
     try {
       dispatch({ type: PRODUCT_LIST_REQUEST });
-      const { data } = await Axios.get('/api/products');
+      const { data } = await Axios.get('/api/products?category=' + category + "&searchKeyword=" + searchKeyword + "&sortOrder=" + sortOrder);
       dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
     } catch (error) {
       dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });
     }
   };
-
+ 
 const saveProduct = (product) => async (dispatch, getState) => {
   try {
     dispatch({type: PRODUCT_SAVE_REQUEST, payload: product});
