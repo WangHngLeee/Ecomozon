@@ -364,6 +364,7 @@ tbody > tr:nth-child(odd) {
   flex-wrap: wrap;
   padding: 1rem;
   justify-content: space-between;
+  list-style-type: none;
 }
 .placeorder-info {
   flex: 3 1 60rem;
@@ -401,6 +402,7 @@ tbody > tr:nth-child(odd) {
 }
 .placeorder-actions-payment > div {
   width: 100%;
+  list-style-type: none;
 }
 
 /* Profile */

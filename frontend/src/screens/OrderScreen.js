@@ -40,6 +40,7 @@ function OrderScreen(props) {
               {order.shipping.address},{order.shipping.city},
               {order.shipping.postalCode},{order.shipping.country}
             </div>
+            <h3>Deliver Status</h3>
             <div>
                 {order.isDelivered ? "Delivered at " + order.deliveredAt : "Not Delivered"}
             </div>
@@ -49,6 +50,7 @@ function OrderScreen(props) {
             <div>
                 Payment Method: {order.payment.paymentMethod}
             </div>
+            <h3>Payment Status</h3>
             <div>
               <li className="placeorder-actions-payment">
                 {order.isPaid ? "Paid at" + order.paidAt : "Not Paid"}
@@ -74,7 +76,7 @@ function OrderScreen(props) {
                         <Link to={"/product/" + item.product}>{item.name}</Link>
                       </div>
                       <div>
-                        Qty: {item.qyt};
+                        Qty: {item.qty}
                       </div>
                     </div>
                     <div className="cart-price">${item.price}</div>

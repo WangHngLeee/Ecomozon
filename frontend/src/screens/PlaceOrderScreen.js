@@ -17,8 +17,8 @@ function PlaceOrderScreen(props) {
   }
   const itemsPrice = cartItems.reduce((a,c) => a + c.price*c.qty, 0);
   const shippingPrice = itemsPrice > 100 ? 0 : 10;
-  const taxPrice = 0.15 * itemsPrice;
-  const totalPrice = itemsPrice + shippingPrice + taxPrice;
+  const taxPrice = 0.1 * itemsPrice;
+  const totalPrice = (itemsPrice + shippingPrice + taxPrice).toFixed(2);
 
   const dispatch = useDispatch();
 
@@ -70,7 +70,7 @@ function PlaceOrderScreen(props) {
                         <Link to={"/product/" + item.product}>{item.name}</Link>
                       </div>
                       <div>
-                        Qty: {item.qyt};
+                        Qty: {item.qty}
                       </div>
                     </div>
                     <div className="cart-price">${item.price}</div>
