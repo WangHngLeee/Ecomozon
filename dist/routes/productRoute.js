@@ -67,12 +67,47 @@ router.get('/', /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }());
-router.post("/", _util.isAuth, _util.isAdmin, /*#__PURE__*/function () {
+router.get('/:id', /*#__PURE__*/function () {
   var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(req, res) {
-    var product, newProduct;
+    var product;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
+          case 0:
+            _context2.next = 2;
+            return _productModel["default"].findOne({
+              _id: req.params.id
+            });
+
+          case 2:
+            product = _context2.sent;
+
+            if (product) {
+              res.send(product);
+            } else {
+              res.status(404).send({
+                message: 'Product Not Found.'
+              });
+            }
+
+          case 4:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+
+  return function (_x3, _x4) {
+    return _ref2.apply(this, arguments);
+  };
+}());
+router.post("/", _util.isAuth, _util.isAdmin, /*#__PURE__*/function () {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(req, res) {
+    var product, newProduct;
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
           case 0:
             product = new _productModel["default"]({
               name: req.body.name,
@@ -85,89 +120,28 @@ router.post("/", _util.isAuth, _util.isAdmin, /*#__PURE__*/function () {
               category: req.body.category,
               rating: req.body.rating
             });
-            _context2.next = 3;
+            _context3.next = 3;
             return product.save();
 
           case 3:
-            newProduct = _context2.sent;
+            newProduct = _context3.sent;
 
             if (!newProduct) {
-              _context2.next = 6;
+              _context3.next = 6;
               break;
             }
 
-            return _context2.abrupt("return", res.status(201).send({
+            return _context3.abrupt("return", res.status(201).send({
               message: "New product created",
               data: newProduct
             }));
 
           case 6:
-            return _context2.abrupt("return", res.status(500).send({
+            return _context3.abrupt("return", res.status(500).send({
               message: "Error in creating new product"
             }));
 
           case 7:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-
-  return function (_x3, _x4) {
-    return _ref2.apply(this, arguments);
-  };
-}());
-router.put("/:id", _util.isAuth, _util.isAdmin, /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(req, res) {
-    var productId, product, updatedProduct;
-    return regeneratorRuntime.wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            productId = req.params.id;
-            _context3.next = 3;
-            return _productModel["default"].findById({
-              _id: productId
-            });
-
-          case 3:
-            product = _context3.sent;
-
-            if (!product) {
-              _context3.next = 17;
-              break;
-            }
-
-            product.name = req.body.name;
-            product.image = req.body.image;
-            product.price = req.body.price;
-            product.brand = req.body.brand;
-            product.description = req.body.description;
-            product.countInStock = req.body.countInStock;
-            product.category = req.body.category;
-            _context3.next = 14;
-            return product.save();
-
-          case 14:
-            updatedProduct = _context3.sent;
-
-            if (!updatedProduct) {
-              _context3.next = 17;
-              break;
-            }
-
-            return _context3.abrupt("return", res.status(200).send({
-              message: "Product updated",
-              data: updatedProduct
-            }));
-
-          case 17:
-            return _context3.abrupt("return", res.status(500).send({
-              message: "Error in updating new product"
-            }));
-
-          case 18:
           case "end":
             return _context3.stop();
         }
@@ -179,36 +153,56 @@ router.put("/:id", _util.isAuth, _util.isAdmin, /*#__PURE__*/function () {
     return _ref3.apply(this, arguments);
   };
 }());
-router["delete"]("/:id", _util.isAdmin, _util.isAuth, /*#__PURE__*/function () {
+router.put("/:id", _util.isAuth, _util.isAdmin, /*#__PURE__*/function () {
   var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(req, res) {
-    var deletedProduct;
+    var productId, product, updatedProduct;
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
-            _context4.next = 2;
-            return _productModel["default"].findById(req.params.id);
+            productId = req.params.id;
+            _context4.next = 3;
+            return _productModel["default"].findById({
+              _id: productId
+            });
 
-          case 2:
-            deletedProduct = _context4.sent;
+          case 3:
+            product = _context4.sent;
 
-            if (!deletedProduct) {
-              _context4.next = 7;
+            if (!product) {
+              _context4.next = 17;
               break;
             }
 
-            _context4.next = 6;
-            return deletedProduct.remove();
+            product.name = req.body.name;
+            product.image = req.body.image;
+            product.price = req.body.price;
+            product.brand = req.body.brand;
+            product.description = req.body.description;
+            product.countInStock = req.body.countInStock;
+            product.category = req.body.category;
+            _context4.next = 14;
+            return product.save();
 
-          case 6:
-            res.send({
-              message: "Product Deleted"
-            });
+          case 14:
+            updatedProduct = _context4.sent;
 
-          case 7:
-            res.send("Error in deleting product");
+            if (!updatedProduct) {
+              _context4.next = 17;
+              break;
+            }
 
-          case 8:
+            return _context4.abrupt("return", res.status(200).send({
+              message: "Product updated",
+              data: updatedProduct
+            }));
+
+          case 17:
+            return _context4.abrupt("return", res.status(500).send({
+              message: "Error in updating new product"
+            }));
+
+          case 18:
           case "end":
             return _context4.stop();
         }
@@ -218,6 +212,49 @@ router["delete"]("/:id", _util.isAdmin, _util.isAuth, /*#__PURE__*/function () {
 
   return function (_x7, _x8) {
     return _ref4.apply(this, arguments);
+  };
+}());
+router["delete"]('/:id', _util.isAuth, _util.isAdmin, /*#__PURE__*/function () {
+  var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(req, res) {
+    var deletedProduct;
+    return regeneratorRuntime.wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            _context5.next = 2;
+            return _productModel["default"].findById(req.params.id);
+
+          case 2:
+            deletedProduct = _context5.sent;
+
+            if (!deletedProduct) {
+              _context5.next = 9;
+              break;
+            }
+
+            _context5.next = 6;
+            return deletedProduct.remove();
+
+          case 6:
+            res.send({
+              message: 'Product Deleted'
+            });
+            _context5.next = 10;
+            break;
+
+          case 9:
+            res.send('Error in Deletion.');
+
+          case 10:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5);
+  }));
+
+  return function (_x9, _x10) {
+    return _ref5.apply(this, arguments);
   };
 }());
 var _default = router;
